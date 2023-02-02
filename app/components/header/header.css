@@ -1,0 +1,16 @@
+.title {
+	font-weight: 900;
+	font-size: 5em;
+	text-align: center;
+}
+.backTitle {
+	text-shadow: 0 2px 10px white;
+	color: white;
+	font-size: 5.1em;
+}
+.frontTitle {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%);
+}
