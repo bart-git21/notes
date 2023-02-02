@@ -1,6 +1,6 @@
 import {
     deleteNote,
-} from "./notes_from_template.js";
+} from "./notes.js";
 
 const noteModal = document.getElementById('noteModal');
 const note__createNew = document.querySelector('.note__createNew');

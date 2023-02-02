@@ -1,7 +1,7 @@
 import {
     appendNoteToScreen,
     notesWrapper,
-} from "./notes_from_template.js";
+} from "./notes.js";
 
 const notes = JSON.parse(localStorage.getItem("notes"));
 
