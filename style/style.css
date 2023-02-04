@@ -47,3 +47,7 @@ body {
     white-space: break-spaces;
     color: red;
 }
+
+.messageDate {
+    font-size: 10px;
+}

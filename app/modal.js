@@ -13,6 +13,9 @@ const closeBtn = document.querySelector('.closeBtn');
 function removeParent() {    
     this.parentElement.remove();
 }
+function getDate() {
+    this.previousElementSibling.textContent = new Date().toLocaleString();
+}
 
 
 // Delete Modal UX
@@ -27,6 +30,7 @@ function closeDeleteModal() {
 // Note Modal UI
 noteModal.addEventListener('show.bs.modal', () => {
     clearModalInputs();
+    setModalMessageDate();
     setModalBtnName();
 })
 noteModal.addEventListener('shown.bs.modal', () => {
@@ -52,9 +56,15 @@ function setModalDelBtn() {
         e => e.addEventListener("click", removeParent)
     )
 }
-function addNewInput(text="") {
+function setModalMessageDate() {
+    [...modalMessagesField.querySelectorAll('.note__text')].forEach(
+        e => e.addEventListener("input", getDate)
+    )
+}
+function addNewInput(text="", date="") {
     modalMessagesField.insertAdjacentHTML("beforeend", `
         <div class="input-group mb-3">
+            <div class="invisible messageDate">${date}</div>
             <input 
             type="text" 
             class="form-control note__text" 
@@ -67,6 +77,7 @@ function addNewInput(text="") {
             </button>
         </div>
     `);
+    setModalMessageDate();
     setModalDelBtn();
 }
 function clearModalMessagesField() {
