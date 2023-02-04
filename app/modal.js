@@ -47,7 +47,15 @@ function clearAndCloseNoteModal() {
 }
 function clearModalInputs() {
     modalTitle.value = "";
-    modalMessagesField.querySelector('.note__text').value = "";
+    modalMessagesField.innerHTML = `
+        <div class="messageDate"></div>
+        <input 
+            type="text" 
+            class="form-control mb-2 w-100 note__text" 
+            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+            data-bs-content="Please, enter the message"
+            placeholder="Enter your note">
+    `;
 }
 
 function setModalDelBtn() {
