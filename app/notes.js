@@ -5,36 +5,43 @@ import {
     clearAndCloseNoteModal,
     closeDeleteModal,
     setModalBtnName,
-    note__title,
-    note__text,
-    note__createNew,
+    clearModalMessagesField,
+    addNewInput,
+    modalTitle,
+    modalMessagesField,
+    modalCreateNoteBtn,
     popoverTitle,
-    popoverText,
 } from "./modal.js";
 
-
+let popoverText = null;
 const notesWrapper = document.querySelector('.notesWrapper');
 const template = document.querySelector('template');
 let editingElem = null;
 
 
 // Note UI
-async function appendNoteToScreen(title, text, date) {
-    const htmlFragment = await createHtmlClone(title, text, date);
+async function appendNoteToScreen(title, date, modalMessages) {
+    const htmlFragment = await createHtmlClone(title, date, modalMessages);
     notesWrapper.appendChild(htmlFragment);
 }
-function createHtmlClone(title, text, date) {
+function createHtmlClone(title, date, modalMessages) {
     const clone = template.content.cloneNode("true");
     clone.querySelector("h5").textContent = title;
     clone.querySelector(".noteDate").textContent = date;
-    clone.querySelector("p").textContent = text;
+    modalMessages.forEach(
+        e => {
+            clone.querySelector(".card-body").insertAdjacentHTML("beforeend", `
+            <div class="card-text">${e}</div>
+            `);
+        }
+    )
+    clone.querySelector(".noteEditor").addEventListener("click", getEditingTarget);
     clone.querySelector(".noteEditor").addEventListener("click", editNote);
-    // clone.querySelector(".noteDeleteBtn").addEventListener("click", deleteNote);
     clone.querySelector(".noteDeleteBtn").addEventListener("click", getEditingTarget);
 
     return new Promise(
         res => {
-            setTimeout(()=>{
+            setTimeout(() => {
                 res(clone)
             }, 200)
         }
@@ -45,52 +52,71 @@ function createHtmlClone(title, text, date) {
 
 // game logic
 
-note__createNew.addEventListener("click", async function() {await createAndSaveNote()});
-
-function getEditingTarget(e) {
-    editingElem = e.target.parentElement.parentElement.parentElement;
+function getEditingTarget() {
+    editingElem = this.parentElement.parentElement.parentElement;
 }
 
+modalCreateNoteBtn.addEventListener("click", async function () { await createAndSaveNote() });
 async function createAndSaveNote() {
     // check if string are not empty before creating a new note
-    if (!note__title.value) {
-        popoverText.hide();
+    if (!modalTitle.value) {
         popoverTitle.show();
-        note__title.focus();
-    } else if (!note__text.value) {
-        popoverTitle.hide();
-        popoverText.show();
-        note__text.focus();
+        modalTitle.focus();
     } else {
         popoverTitle.hide();
-        popoverText.hide();
-
+        
+        const modalMsgInputs = [...modalMessagesField.querySelectorAll('.note__text')];
+        for (let i = 0; i < modalMsgInputs.length; i++) {
+            popoverText = new bootstrap.Popover(modalMsgInputs[i]);
+            if (!modalMsgInputs[i].value) {
+                popoverText.show();
+                modalMsgInputs[i].focus();
+                return
+            }
+        }
+        const modalMessages = modalMsgInputs.map(
+            e => e.value
+        )
         const date = new Date().toLocaleDateString();
-        await appendNoteToScreen(note__title.value, note__text.value, date);
+        await appendNoteToScreen(modalTitle.value, date, modalMessages);
+
+        // editing case
+        editingElem && editingElem.remove();
 
         updateLocalStorage();
         clearAndCloseNoteModal();
     };
 
-    // editing case
-    if (editingElem) {
-        editingElem.remove();
-        updateLocalStorage();
-    }
 }
+
+//delete the note
 function deleteNote() {
     editingElem.remove();
     updateLocalStorage();
     closeDeleteModal();
 }
-function editNote(e) {
-    getEditingTarget(e);
-    setModalBtnName(true);
 
-    note__title.focus();
-    note__title.value = editingElem.querySelector(".card-title").textContent;
-    note__text.value = editingElem.querySelector(".card-text").textContent;
+// edit the note
+function getEditingTitle() {
+    modalTitle.focus();
+    modalTitle.value = editingElem.querySelector(".card-title").textContent;
 }
+function getEditingMessages() {
+    const cardMessagesInputs = [...editingElem.querySelectorAll(".card-text")];
+    const cardMessagesText = cardMessagesInputs.map(
+        e => e.textContent
+    )
+    clearModalMessagesField();
+    cardMessagesText.forEach(
+        e => addNewInput(e)
+    )
+}
+function editNote() {
+    setModalBtnName(true);
+    getEditingTitle();
+    getEditingMessages();
+}
+
 
 export {
     deleteNote,

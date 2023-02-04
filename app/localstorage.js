@@ -3,11 +3,15 @@ function updateLocalStorage() {
     const cards = document.querySelectorAll(".card");
     cards.forEach(
         e => {
+            const cardsMessages = [...e.querySelectorAll('.card-text')];
+            const messagesText = cardsMessages.map(
+                e => e.textContent
+            )
             arr.push(
                 {
                     title: e.children[0].children[1].children[0].textContent,
                     date: e.children[0].children[1].children[1].textContent,
-                    text: e.children[1].children[0].textContent,
+                    allNoteMessages: messagesText,
                 }
             );
         }

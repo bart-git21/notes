@@ -44,30 +44,32 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="noteModalLabel">Modal title</h1>
+                            <input 
+                                type="text" 
+                                class="form-control modalTitle" 
+                                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                                data-bs-content="Please, enter the title"
+                                placeholder="Enter a title"> 
                             <button class="btn btn-danger closeBtn" data-bs-dismiss="modal">X</button>
                         </div>
                         <form action="" method="post">
                             <div class="modal-body">
-                                <div class="input-group mb-3">
-                                    <input 
-                                        type="text" 
-                                        class="note__title form-control" 
-                                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                                        data-bs-content="Please, enter the title"
-                                        placeholder="Enter a title">                                    
+                                <div class="input-group mb-3">                                   
                                 </div>
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3 d-flex flex-column modalMessagesField">
                                     <input 
                                         type="text" 
-                                        class="note__text form-control" 
+                                        class="form-control mb-2 w-100 note__text" 
                                         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
                                         data-bs-content="Please, enter the message"
                                         placeholder="Enter your note">
                                 </div>
+                                <button type="button" class="btn btn-primary modal__addNewInput fw-bold" title="add another one message">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="note__createNew btn btn-primary"></button>
+                                <button type="button" class="btn btn-primary modalCreateNoteBtn"></button>
                             </div>
                         </form>
                     </div>
@@ -104,9 +106,7 @@
                             <div class="noteDate fw-light"></div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <p class="card-text"></p>
-                    </div>
+                    <div class="card-body"></div>
                 </div>
             </template>
   

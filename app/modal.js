@@ -3,12 +3,16 @@ import {
 } from "./notes.js";
 
 const noteModal = document.getElementById('noteModal');
-const note__createNew = document.querySelector('.note__createNew');
-const note__title = document.querySelector('.note__title');
-const popoverTitle = new bootstrap.Popover(note__title);
-const note__text = document.querySelector('.note__text');
-const popoverText = new bootstrap.Popover(note__text);
+const modalMessagesField = document.querySelector('.modalMessagesField');
+const modal__addNewInput = document.querySelector('.modal__addNewInput');
+const modalCreateNoteBtn = document.querySelector('.modalCreateNoteBtn');
+const modalTitle = document.querySelector('.modalTitle');
+const popoverTitle = new bootstrap.Popover(modalTitle);
 const closeBtn = document.querySelector('.closeBtn');
+
+function removeParent() {    
+    this.parentElement.remove();
+}
 
 
 // Delete Modal UX
@@ -22,33 +26,62 @@ function closeDeleteModal() {
 
 // Note Modal UI
 noteModal.addEventListener('show.bs.modal', () => {
-    clearModal();
+    clearModalInputs();
     setModalBtnName();
 })
 noteModal.addEventListener('shown.bs.modal', () => {
-    note__title.focus();
+    modalTitle.focus();
 })
 function setModalBtnName(isEditing = false) {
-    note__createNew.textContent = isEditing ? "Save" : "Create Note";
+    modalCreateNoteBtn.textContent = isEditing ? "Save" : "Create Note";
 }
 
 // Note Modal UX
 function clearAndCloseNoteModal() {
-    clearModal();
+    clearModalInputs();
     closeBtn.click();
 }
-function clearModal() {
-    note__title.value = "";
-    note__text.value = "";
+function clearModalInputs() {
+    modalTitle.value = "";
+    modalMessagesField.querySelector('.note__text').value = "";
 }
+
+function setModalDelBtn() {
+    const modalDelBtn = [...modalMessagesField.querySelectorAll('.modal__deleteThisInput')];
+    modalDelBtn.forEach(
+        e => e.addEventListener("click", removeParent)
+    )
+}
+function addNewInput(text="") {
+    modalMessagesField.insertAdjacentHTML("beforeend", `
+        <div class="input-group mb-3">
+            <input 
+            type="text" 
+            class="form-control note__text" 
+            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+            data-bs-content="Please, enter the message"
+            placeholder="Enter your next message"
+            value="${text}">
+            <button type="button" class="btn btn-primary fw-bold modal__deleteThisInput" title="delete this message">
+                <i class="fa-solid fa-scissors"></i>
+            </button>
+        </div>
+    `);
+    setModalDelBtn();
+}
+function clearModalMessagesField() {
+    modalMessagesField.innerHTML = null;
+}
+modal__addNewInput.addEventListener("click", function(){addNewInput()});
 
 export {
     clearAndCloseNoteModal,
     closeDeleteModal,
     setModalBtnName,
-    note__title,
-    note__text,
-    note__createNew,
+    clearModalMessagesField,
+    addNewInput,
+    modalTitle,
+    modalMessagesField,
+    modalCreateNoteBtn,
     popoverTitle,
-    popoverText
 };
