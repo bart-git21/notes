@@ -71,7 +71,7 @@ async function createAndSaveNote() {
         const modalMsgInputs = [...modalMessagesField.querySelectorAll('.note__text')];
         for (let i = 0; i < modalMsgInputs.length; i++) {
             popoverText = new bootstrap.Popover(modalMsgInputs[i]);
-            if (!modalMsgInputs[i].value) {
+            if (!modalMsgInputs[i].value.trim()) {
                 popoverText.show();
                 modalMsgInputs[i].focus();
                 return
