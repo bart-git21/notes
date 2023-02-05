@@ -84,6 +84,10 @@ function addNewInput(text="", date="") {
             </button>
         </div>
     `);
+    
+    const modalMsgInputs = [...modalMessagesField.querySelectorAll('.note__text')];
+    modalMsgInputs[modalMsgInputs.length - 1].focus();
+    
     setModalMessageDate();
     setModalDelBtn();
 }
