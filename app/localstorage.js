@@ -13,8 +13,8 @@ function updateLocalStorage() {
             )
             arr.push(
                 {
-                    title: e.children[0].children[1].children[0].textContent,
-                    date: e.children[0].children[1].children[1].textContent,
+                    title: e.children[0].children[0].textContent,
+                    date: e.children[0].children[1].textContent,
                     allNoteMessages: messagesText,
                     messages_dates:messagesDates,
                 }

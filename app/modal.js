@@ -59,8 +59,7 @@ function clearModalInputs() {
 }
 
 function setModalDelBtn() {
-    const modalDelBtn = [...modalMessagesField.querySelectorAll('.modal__deleteThisInput')];
-    modalDelBtn.forEach(
+    [...modalMessagesField.querySelectorAll('.modal__deleteThisInput')].forEach(
         e => e.addEventListener("click", removeParent)
     )
 }
