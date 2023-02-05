@@ -24,8 +24,8 @@
 </head>
 <body>
     <header>
-        <div class="title backTitle">Notes API</div>
-        <div class="title frontTitle">Notes API</div>
+        <div class="title backTitle">Notes APP</div>
+        <div class="title frontTitle">Notes APP</div>
     </header>
 
     <main>
@@ -34,7 +34,7 @@
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noteModal">
                 Add Note
             </button>
-            <h2 class="text-light">You can add, change and delete the note.</h2>
+            <h2 class="text-light">You can create, rewrite and delete the note.</h2>
 
             <!-- Notes List  -->
             <div class="notesWrapper d-flex flex-wrap"></div>
@@ -97,14 +97,12 @@
             <!-- Note Template  -->
             <template>
                 <div class="card mx-3 my-2" style="width: 18rem;">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-end cardIcons">
-                            <i class="fa-solid fa-pen ms-3 noteEditor" data-bs-target='#noteModal' data-bs-toggle='modal'></i>
-                            <i class="fa-solid fa-xmark ms-3 noteDeleteBtn" data-bs-toggle="modal" data-bs-target="#deleteModal"></i>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <h5 class="card-title ms-3"></h5>
-                            <div class="noteDate fw-light"></div>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title"></h5>
+                        <div class="noteDate fw-light"></div>
+                        <div class="text-primary-emphasis cardIcons">
+                            <i class="fa-solid fa-pen me-3 noteEditor" data-bs-target='#noteModal' data-bs-toggle='modal'></i>
+                            <i class="fa-solid fa-xmark noteDeleteBtn" data-bs-toggle="modal" data-bs-target="#deleteModal"></i>
                         </div>
                     </div>
                     <div class="card-body"></div>

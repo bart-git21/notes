@@ -1,6 +1,12 @@
 
 @import url("./../app/components/header/header.css");
 
+:root {
+    --c-active: #0d6efd;
+    --c-light: #cfe2ff;
+    --c-dark: #333;
+}
+
 *,
 *::before,
 *::after {
@@ -10,31 +16,38 @@
 }
 
 body {
-    background-color: #333;
+    background-color: var(--c-dark);
 }
 
 .container {
     position: relative;
 }
 
-.noteEditor:hover,
-.noteDeleteBtn:hover {
-    scale: 1.5;
-    cursor: pointer;
+.card {
+    border: 3px solid var(--c-dark);
+}
+.card:hover {
+    border-color: var(--c-active);
+    box-shadow: 1px 1px 5px var(--c-light);
+}
+
+.card:hover .card-body {
+    background-color: var(--c-light);
 }
 
 .cardIcons {
     visibility: hidden;
-    position: absolute;
-    right: 10px;
-    top: -15px;
-    color: red;
 }
 .cardIcons i {
-    font-size: 1.9em;
+    font-size: 1.4em;
 }
 .card:hover .cardIcons {
     visibility: visible;
+}
+
+.cardIcons i:hover {
+    scale: 1.5;
+    cursor: pointer;
 }
 
 .card-text {
@@ -45,7 +58,6 @@ body {
 .card:hover .card-text {
     overflow: visible;
     white-space: break-spaces;
-    color: red;
 }
 
 .messageDate {
