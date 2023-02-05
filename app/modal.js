@@ -13,7 +13,7 @@ const closeBtn = document.querySelector('.closeBtn');
 function removeParent() {    
     this.parentElement.remove();
 }
-function getDate() {
+function getMessageDate() {
     this.previousElementSibling.textContent = new Date().toLocaleString();
 }
 
@@ -47,15 +47,8 @@ function clearAndCloseNoteModal() {
 }
 function clearModalInputs() {
     modalTitle.value = "";
-    modalMessagesField.innerHTML = `
-        <div class="messageDate"></div>
-        <input 
-            type="text" 
-            class="form-control mb-2 w-100 note__text" 
-            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-            data-bs-content="Please, enter the message"
-            placeholder="Enter your note">
-    `;
+    modalMessagesField.innerHTML = null;
+    addNewInput();
 }
 
 function setModalDelBtn() {
@@ -65,7 +58,7 @@ function setModalDelBtn() {
 }
 function setModalMessageDate() {
     [...modalMessagesField.querySelectorAll('.note__text')].forEach(
-        e => e.addEventListener("input", getDate)
+        e => e.addEventListener("input", getMessageDate)
     )
 }
 function addNewInput(text="", date="") {
@@ -77,7 +70,7 @@ function addNewInput(text="", date="") {
             class="form-control note__text" 
             aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
             data-bs-content="Please, enter the message"
-            placeholder="Enter your next message"
+            placeholder="Enter your message"
             value="${text}">
             <button type="button" class="btn btn-primary fw-bold modal__deleteThisInput" title="delete this message">
                 <i class="fa-solid fa-scissors"></i>
