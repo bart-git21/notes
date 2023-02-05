@@ -101,5 +101,6 @@ export {
     modalTitle,
     modalMessagesField,
     modalCreateNoteBtn,
+    noteModal,
     popoverTitle,
 };

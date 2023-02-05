@@ -10,6 +10,7 @@ import {
     modalTitle,
     modalMessagesField,
     modalCreateNoteBtn,
+    noteModal,
     popoverTitle,
 } from "./modal.js";
 
@@ -55,6 +56,9 @@ function createHtmlClone(title, date, modalMessages, messagesDates) {
 
 // game logic
 
+noteModal.addEventListener('hide.bs.modal', () => {
+    editingElem = null;
+})
 function getEditingTarget() {
     editingElem = this.parentElement.parentElement.parentElement;
 }
@@ -62,7 +66,7 @@ function getEditingTarget() {
 modalCreateNoteBtn.addEventListener("click", async function () { await createAndSaveNote() });
 async function createAndSaveNote() {
     // check if string are not empty before creating a new note
-    if (!modalTitle.value) {
+    if (!modalTitle.value.trim()) {
         popoverTitle.show();
         modalTitle.focus();
     } else {
