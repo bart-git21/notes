@@ -5,7 +5,7 @@ function updateLocalStorage() {
         e => {
             const cardsMessages = [...e.querySelectorAll('.card-text')];
             const messagesText = cardsMessages.map(
-                e => e.textContent
+                e => e.textContent.trim()
             )
             const messagesDatesDivs = [...e.querySelectorAll('.messageDate')];
             const messagesDates = messagesDatesDivs.map(
