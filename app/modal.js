@@ -72,7 +72,7 @@ function addNewInput(text="", date="") {
             data-bs-content="Please, enter the message"
             placeholder="Enter your message"
             value="${text}">
-            <button type="button" class="btn btn-primary fw-bold modal__deleteThisInput" title="delete this message">
+            <button type="button" class="btn btn-outline-danger fw-bold modal__deleteThisInput" title="delete this message">
                 <i class="fa-solid fa-scissors"></i>
             </button>
         </div>
