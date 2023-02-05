@@ -1,0 +1,10 @@
+
+
+footer {
+    width: 100%;
+    min-height: 10vh;
+    position: relative;
+    text-align: center;
+    font-family: 'Azeret Mono', monospace;
+    color: var(--c-light);
+}

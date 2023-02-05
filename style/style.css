@@ -1,5 +1,7 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono&display=swap');
 @import url("./../app/components/header/header.css");
+@import url("./../app/components/footer/footer.css");
 
 :root {
     --c-active: #0d6efd;
@@ -17,6 +19,10 @@
 
 body {
     background-color: var(--c-dark);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .container {
