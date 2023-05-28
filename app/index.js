@@ -1,17 +1,5 @@
-import {
-    appendNoteToScreen,
-    notesWrapper,
-} from "./notes.js";
+import onShow from "./show.js";
+document.querySelector("#showAllNotes").addEventListener("click", () => {onShow.allNotes()});
 
-const notes = JSON.parse(localStorage.getItem("notes"));
-
-
-function startPoint() {    
-    notesWrapper.innerHTML = "";
-    notes.forEach(
-        e => appendNoteToScreen(e.title, e.date, e.allNoteMessages, e.messages_dates)
-    );
-}
-if (notes) {
-    startPoint();
-}
+const notesList = JSON.parse(localStorage.getItem("notes"));
+notesList && onShow.actualNotes(notesList);
