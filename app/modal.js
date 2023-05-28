@@ -1,6 +1,10 @@
 import {
     deleteNote,
-} from "./notes.js";
+    clearEditingElem,
+    createAndSaveNote,
+} from "./updateNote.js";
+
+import onShow from "./show.js";
 
 const noteModal = document.getElementById('noteModal');
 const modalMessagesField = document.querySelector('.modalMessagesField');
@@ -9,6 +13,8 @@ const modalCreateNoteBtn = document.querySelector('.modalCreateNoteBtn');
 const modalTitle = document.querySelector('.modalTitle');
 const popoverTitle = new bootstrap.Popover(modalTitle);
 const closeBtn = document.querySelector('.closeBtn');
+const modalNoteShowDate = document.querySelector(".modalNoteShowDate");
+const modalToggleShowtimerBtn = document.querySelector("#modalToggleShowtimerBtn");
 
 function removeParent() {    
     this.parentElement.remove();
@@ -32,15 +38,18 @@ noteModal.addEventListener('show.bs.modal', () => {
     clearModalInputs();
     setModalMessageDate();
     setModalBtnName();
-})
+});
 noteModal.addEventListener('shown.bs.modal', () => {
     modalTitle.focus();
-})
+});
 function setModalBtnName(isEditing = false) {
     modalCreateNoteBtn.textContent = isEditing ? "Save" : "Create Note";
-}
+};
+noteModal.addEventListener('hide.bs.modal', clearEditingElem);
 
 // Note Modal UX
+modalCreateNoteBtn.addEventListener("click", async function () { await createAndSaveNote() });
+
 function clearAndCloseNoteModal() {
     clearModalInputs();
     closeBtn.click();
@@ -48,6 +57,8 @@ function clearAndCloseNoteModal() {
 function clearModalInputs() {
     modalTitle.value = "";
     modalMessagesField.innerHTML = null;
+    modalNoteShowDate.textContent = "";
+    modalToggleShowtimerBtn.value = 0;
     addNewInput();
 }
 
@@ -89,6 +100,17 @@ function clearModalMessagesField() {
 }
 modal__addNewInput.addEventListener("click", function(){addNewInput()});
 
+
+
+modalToggleShowtimerBtn.addEventListener("change", () => updateShowtimer());
+function updateShowtimer() {
+    // modalNoteShowDate.textContent = new Date(+modalToggleShowtimerBtn.value + Date.now());
+    modalNoteShowDate.textContent = (+modalToggleShowtimerBtn.value + Date.now()).toString();
+    setTimeout(()=>{onShow.actualNotes(JSON.parse(localStorage.getItem("notes")))}, +modalToggleShowtimerBtn.value + 100);
+}
+
+
+
 export {
     clearAndCloseNoteModal,
     closeDeleteModal,
@@ -98,6 +120,8 @@ export {
     modalTitle,
     modalMessagesField,
     modalCreateNoteBtn,
+    modalNoteShowDate,
+    modalToggleShowtimerBtn,
     noteModal,
     popoverTitle,
 };
